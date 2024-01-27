@@ -11,6 +11,9 @@
     </div>
   </div>
   <div class="panel-body">
-    
+    <app-contact-item
+      *ngFor="let contact of contacts"
+      [contact]="contact"
+    ></app-contact-item>
   </div>
 </div>
