@@ -16,8 +16,8 @@ export class DocumentListComponent {
   documents = [
     new Document('1', 'DummyDocument1', 'This is DummyDocument 1.', 'https://www.byui.com/1'),
     new Document('2', 'DummyDocument2', 'This is DummyDocument 2.', 'https://www.byui.com/2'),
-    new Document('3', 'DummyDocument1', 'This is DummyDocument 3.', 'https://www.byui.com/3'),
-    new Document('4', 'DummyDocument1', 'This is DummyDocument 4.', 'https://www.byui.com/4')
+    new Document('3', 'DummyDocument3', 'This is DummyDocument 3.', 'https://www.byui.com/3'),
+    new Document('4', 'DummyDocument4', 'This is DummyDocument 4.', 'https://www.byui.com/4')
   ]
 
   onSelectedDocument(document: Document) {

@@ -1,10 +1,5 @@
-.documentDiv {
-    width: 9rem;
-    height: 11rem;
-    margin: 2px;
-    font-size: 1.3rem;
-    border: solid thin darkgrey;
-    float: left;
-    padding: .25rem
-  }
-  
+.list-group-item {
+  border: solid thin darkgrey;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
