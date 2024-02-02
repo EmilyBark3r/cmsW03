@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { Document } from '../document.model';
 
 @Component({
   selector: 'app-document-detail',
   standalone: true,
-  imports: [],
+  imports: [Document],
   templateUrl: './document-detail.component.html',
   styleUrl: './document-detail.component.css'
 })
