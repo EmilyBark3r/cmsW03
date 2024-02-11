@@ -11,6 +11,7 @@ import { ContactsService } from '../contacts.service';
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.css'
 })
+
 export class ContactListComponent {
   contacts: Contact[] = [];
 
