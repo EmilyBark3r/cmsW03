@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Message } from '../messages.model';
 
 @Component({
@@ -9,11 +9,15 @@ import { Message } from '../messages.model';
 })
 
 export class MessageEditComponent implements OnInit {
-
   @Output() addMessageEvent = new EventEmitter<Message>();
 
-  subjectValue: string = 'Just saying hello';
-  msgTextValue: string = 'Hello';
+  @ViewChild('subject') subject!: ElementRef;
+  @ViewChild('msgText') msgText!: ElementRef;
+
+  // @Output() addMessageEvent = new EventEmitter<Message>();
+
+  // subjectValue: string = 'Just saying hello';
+  // msgTextValue: string = 'Hello';
   currentSender: string = 'Emily Barker';
 
   constructor() { }
@@ -21,13 +25,25 @@ export class MessageEditComponent implements OnInit {
   ngOnInit(): void { }
 
   onSendMessage() {
-    const message = new Message('1', this.subjectValue, this.msgTextValue, this.currentSender);
+    const subject = this.subject.nativeElement.value;
+    const msgText = this.msgText.nativeElement.value;
+    const message = new Message('1', subject, msgText, this.currentSender);
     this.addMessageEvent.emit(message);
   }
 
+  // onSendMessage() {
+  //   const message = new Message('1', this.subjectValue, this.msgTextValue, this.currentSender);
+  //   this.addMessageEvent.emit(message);
+  // }
+
+  // onClear() {
+  //   this.subjectValue = '';
+  //   this.msgTextValue = '';
+  // }
+
   onClear() {
-    this.subjectValue = '';
-    this.msgTextValue = '';
+    this.subject.nativeElement.value = '';
+    this.msgText.nativeElement.value = '';
   }
 
 }
