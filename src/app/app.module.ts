@@ -15,13 +15,13 @@ import { ContactItemComponent } from './contacts/contact-item/contact-item.compo
   imports: [
     AppComponent,
     BrowserModule,
-    AppRoutingModule,
+    // AppRoutingModule,
     HeaderComponent,
     ContactsComponent,
     ContactListComponent,
     ContactDetailComponent,
     ContactItemComponent
   ],
-  providers: [],
+  providers: [AppRoutingModule],
 })
 export class AppModule { }

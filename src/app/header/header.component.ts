@@ -1,11 +1,12 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -21,9 +22,9 @@ export class HeaderComponent {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
 
-  @Output() selectedFeatureEvent = new EventEmitter<string>();
+  // @Output() selectedFeatureEvent = new EventEmitter<string>();
 
-  onSelected(selectedEvent: string) {
-    this.selectedFeatureEvent.emit(selectedEvent);
-  }
+  // onSelected(selectedEvent: string) {
+  //   this.selectedFeatureEvent.emit(selectedEvent);
+  // }
 }
