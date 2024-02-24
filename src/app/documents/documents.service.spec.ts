@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { Document } from './document.model';
-import { DocumentsService } from './documents.service';
+import { DocumentService } from './documents.service';
 
 describe('DocumentsService', () => {
-  let documentService: DocumentsService;
+  let documentService: DocumentService;
   const mockDocuments: Document[] = [
     {
       id: '1',
@@ -25,7 +25,7 @@ describe('DocumentsService', () => {
     }
   ]
   beforeEach(() => {
-    documentService = new DocumentsService();
+    documentService = new DocumentService();
     documentService['documents'] = mockDocuments.slice();
   });
 
