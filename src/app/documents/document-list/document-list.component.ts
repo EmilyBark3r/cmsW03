@@ -8,7 +8,7 @@ import {
 import { DocumentItemComponent } from '../document-item/document-item.component';
 import { Document } from '../document.model';
 import { NgFor } from '@angular/common';
-import { DocumentsService } from '../documents.service';
+import { DocumentService } from '../documents.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -26,15 +26,15 @@ export class DocumentListComponent implements OnInit, OnDestroy {
 
   documents: Document[] = [];
 
-  constructor(private documentsService: DocumentsService) { }
+  constructor(private documentService: DocumentService) { }
 
   // onSelectedDocument(document: Document) {
   //   this.selectedDocumentEvent.emit(document);
   // }
 
   ngOnInit(): void {
-    this.documents = this.documentsService.getDocuments();
-    this.subscription = this.documentsService.documentListChangedEvent.subscribe(
+    this.documents = this.documentService.getDocuments();
+    this.subscription = this.documentService.documentListChangedEvent.subscribe(
       (documents: Document[]) => {
         this.documents = documents;
       }

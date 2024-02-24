@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Document } from '../document.model';
 import { NgIf } from '@angular/common';
 // import { Params } from '@angular/router';
-import { DocumentsService } from '../documents.service';
+import { DocumentService } from '../documents.service';
 
 @Component({
   selector: 'app-document-detail',
