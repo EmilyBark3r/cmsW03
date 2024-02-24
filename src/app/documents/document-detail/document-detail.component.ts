@@ -14,19 +14,11 @@ import { DocumentService } from '../documents.service';
 export class DocumentDetailComponent {
   @Input() document!: Document;
 
-  // ngOnInit(): void {
-  //   this.nativeWindow - this.winRef.getNativeWindow();
-  //   this.route.params.subscribe((params: Params) => {
-  //     this.document = this.docService.getDocument(params['id']);
-  //   });
-  // }
+  constructor(
+    private documentService: DocumentService,
+  ) { }
 
-  // onView() {
-  //   if (this.document.url) this.nativeWindow.open(this.document.url);
-  // }
-
-  // onDelete() {
-  //   this.docService.deleteContact(this.document);
-  //   this.router.navigate(['../'], { relativeTo: this.route });
-  // }
+  onDelete() {
+    this.documentService.deleteDocument(this.document);
+  }
 }
