@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ContactsService {
+  contactSelectedEvent = new Subject<Contact[]>();
   contactListChangedEvent = new Subject<Contact[]>();
 
   private contacts: Contact[] = [];
@@ -15,6 +16,22 @@ export class ContactsService {
   constructor() {
     this.contacts = MOCKCONTACTS;
     this.maxContactId = this.getMaxId();
+  }
+
+  getContacts(): Contact[] {
+    return this.contacts.slice();
+  }
+
+  getContact(id: string): Contact | undefined {
+    return this.contacts.find((c) => c.id === id);
+  }
+
+  deleteContact(contact: Contact): void {
+    if (!contact) return;
+      const pos = this.contacts.indexOf(contact);
+    if (pos < 0) return;
+      this.contacts.splice(pos, 1);
+      this.contactListChangedEvent.next(this.contacts.slice());
   }
 
   private getMaxId(): number {
@@ -53,24 +70,4 @@ export class ContactsService {
     this.contactListChangedEvent.next(contactsListClone);
   }
 
-  deleteContact(contact: Contact): void {
-    if (!contact) {
-      return;
-    }
-    const pos = this.contacts.indexOf(contact);
-    if (pos < 0) {
-      return;
-    }
-    this.contacts.splice(pos, 1);
-    const contactsListClone = this.contacts.slice();
-    this.contactListChangedEvent.next(contactsListClone);
-  }
-
-  getContacts(): Contact[] {
-    return this.contacts.slice();
-  }
-
-  getContact(id: string): Contact | undefined {
-    return this.contacts.find((c) => c.id === id);
-  }
 }

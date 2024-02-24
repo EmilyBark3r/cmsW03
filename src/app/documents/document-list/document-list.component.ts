@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 import { DocumentItemComponent } from '../document-item/document-item.component';
 import { Document } from '../document.model';
 import { NgFor } from '@angular/common';
@@ -12,31 +18,30 @@ import { Subscription } from 'rxjs';
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.css']
 })
+
 export class DocumentListComponent implements OnInit, OnDestroy {
-  private igChangeSub: Subscription | null = null;
+  @Output() selectedDocumentEvent = new EventEmitter();
+  subscription!: Subscription;
+  // private igChangeSub: Subscription | null = null;
 
   documents: Document[] = [];
 
-  @Output() selectedDocumentEvent = new EventEmitter<Document>();
-
-  onSelectedDocument(document: Document) {
-    this.selectedDocumentEvent.emit(document);
-  }
-
   constructor(private documentsService: DocumentsService) { }
 
-  ngOnInit() {
+  // onSelectedDocument(document: Document) {
+  //   this.selectedDocumentEvent.emit(document);
+  // }
+
+  ngOnInit(): void {
     this.documents = this.documentsService.getDocuments();
-    this.igChangeSub = this.documentsService.documentListChangedEvent.subscribe(
-      (documentsList: Document[]) => {
-        this.documents = documentsList;
+    this.subscription = this.documentsService.documentListChangedEvent.subscribe(
+      (documents: Document[]) => {
+        this.documents = documents;
       }
     );
   }
 
   ngOnDestroy(): void {
-    if (this.igChangeSub) {
-      this.igChangeSub.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 }

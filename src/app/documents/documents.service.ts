@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Document } from './document.model';
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
-import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentsService {
+  selectedDocumentEvent = new EventEmitter<Document[]>();
   documentListChangedEvent = new Subject<Document[]>();
 
   private documents: Document[] = [];
@@ -17,55 +18,6 @@ export class DocumentsService {
     this.maxDocumentId = this.getMaxId();
   }
 
-  private getMaxId(): number {
-    let maxId = 0;
-    for (const document of this.documents) {
-      const currentId = parseInt(document.id);
-      if (currentId > maxId) {
-        maxId = currentId;
-      }
-    }
-    return maxId;
-  }
-
-  addDocument(newDocument: Document): void {
-    if (!newDocument) {
-      return;
-    }
-    this.maxDocumentId++;
-    newDocument.id = this.maxDocumentId.toString();
-    this.documents.push(newDocument);
-    const documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone);
-  }
-
-  updateDocument(originalDocument: Document, newDocument: Document): void {
-    if (!originalDocument || !newDocument) {
-      return;
-    }
-    const pos = this.documents.indexOf(originalDocument);
-    if (pos < 0) {
-      return;
-    }
-    newDocument.id = originalDocument.id;
-    this.documents[pos] = newDocument;
-    const documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone);
-  }
-
-  deleteDocument(document: Document): void {
-    if (!document) {
-      return;
-    }
-    const pos = this.documents.indexOf(document);
-    if (pos < 0) {
-      return;
-    }
-    this.documents.splice(pos, 1);
-    const documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone);
-  }
-
   getDocuments(): Document[] {
     return this.documents.slice();
   }
@@ -73,4 +25,49 @@ export class DocumentsService {
   getDocument(id: string): Document | undefined {
     return this.documents.find((d) => d.id === id);
   }
+
+  deleteDocument(document: Document): void {
+    if (!document) return;
+    const pos = this.documents.indexOf(document);
+    if (pos < 0) return;
+    this.documents.splice(pos, 1);
+    this.documentListChangedEvent.next(this.documents.slice());
+  }
+
+  private getMaxId(): number {
+    let maxId = 0;
+    this.documents.forEach((d) => {
+      if (+d.id > maxId) maxId = +d.id;
+    });
+    return maxId;
+  }
+
+  addDocument(newDoc: Document): void {
+    if (!newDoc) {
+      return;
+    }
+    this.maxDocumentId++;
+    newDoc.id = this.maxDocumentId.toString();
+    this.documents.push(newDoc);
+    const documentsListClone = this.documents.slice();
+    this.documentListChangedEvent.next(documentsListClone);
+  }
+
+  updateDocument(original: Document, newDoc: Document): void {
+    if (
+      newDoc === null ||
+      newDoc === undefined ||
+      original === null ||
+      original === undefined
+    ) {
+      return;
+    }
+    const pos = this.documents.indexOf(original);
+    if (pos < 0) return;
+
+    newDoc.id = original.id;
+    this.documents[pos] = newDoc;
+    this.documentListChangedEvent.next(this.documents.slice());
+  }
+
 }

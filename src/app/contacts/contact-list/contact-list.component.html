@@ -1,20 +1,20 @@
 <!-- <p>contact-list works!</p> -->
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="row">
-      <div class="col-xs-6">
-        <h1 class="panel-title text-left">Contacts</h1>
-      </div>
-      <div class="col-xs-6">
-        <button class="btn btn-success">New Contact</button>
-      </div>
+<div class="container-fluid">
+  <div class="row contact-list-header">
+    <div class="col-xs-8 vcenter">
+      <h2>Contacts</h2>
+    </div>
+    <div class="col-xs-4 vcenter" style="padding: 0.6rem">
+      <button class="btn btn-success">New Contact</button>
     </div>
   </div>
-  <div class="panel-body">
-    <app-contact-item
-      *ngFor="let contact of contacts"
-      [contact]="contact"
-      (click)="onSelected(contact)"
-    ></app-contact-item>
+  <div class="row contact-list-container">
+    <div class="col-xs-12">
+      <app-contact-item
+        *ngFor="let contact of contacts"
+        [contact]="contact"
+        (click)="onSelected(contact)"
+      ></app-contact-item>
+    </div>
   </div>
 </div>

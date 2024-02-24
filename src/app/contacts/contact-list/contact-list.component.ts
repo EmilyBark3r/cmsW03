@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 
 export class ContactListComponent implements OnInit, OnDestroy {
-  private contactListSub: Subscription | null = null;
+  subscription!: Subscription;
   contacts: Contact[] = [];
 
   @Output() selectedContactEvent = new EventEmitter<Contact>();
@@ -27,16 +27,14 @@ export class ContactListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.contacts = this.contactService.getContacts();
-    this.contactListSub = this.contactService.contactListChangedEvent.subscribe(
-      (contactsList: Contact[]) => {
-        this.contacts = contactsList;
+    this.subscription = this.contactService.contactListChangedEvent.subscribe(
+      (contacts: Contact[]) => {
+        this.contacts = contacts;
       }
     );
   }
 
   ngOnDestroy(): void {
-    if (this.contactListSub) {
-      this.contactListSub.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 }
