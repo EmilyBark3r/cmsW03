@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Message } from '../messages.model';
+import { Message } from '../message.model';
 import { CommonModule } from '@angular/common';
 
 @Component({

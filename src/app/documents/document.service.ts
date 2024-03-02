@@ -22,7 +22,7 @@ export class DocumentService {
     return this.documents.slice();
   }
 
-  getDocument(id: string): Document | undefined {
+  getDocument(id: string): Document {
     return this.documents.find((d) => d.id === id);
   }
 

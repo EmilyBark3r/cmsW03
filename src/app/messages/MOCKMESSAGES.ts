@@ -1,4 +1,4 @@
-import { Message } from './messages.model';
+import { Message } from './message.model';
 
 export const MOCKMESSAGES: Message[] = [
   {

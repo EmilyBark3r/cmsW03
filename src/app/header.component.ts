@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
@@ -6,10 +6,14 @@ import { CommonModule } from '@angular/common';
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  templateUrl: 'header.component.html',
 })
-export class HeaderComponent {
+
+export class HeaderComponent implements OnInit {
+  constructor() { }
+
+  ngOnInit(): void { }
+
   isUserDropdownOpen: boolean = false;
   isNavbarCollapsed: boolean = true;
 
@@ -19,11 +23,5 @@ export class HeaderComponent {
 
   toggleNavbar() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
-  }
-
-  @Output() selectedFeatureEvent = new EventEmitter<string>();
-
-  onSelected(selectedEvent: string) {
-    this.selectedFeatureEvent.emit(selectedEvent);
   }
 }

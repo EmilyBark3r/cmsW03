@@ -14,7 +14,7 @@
   margin-right: 1rem;
 }
 
-.btn {
-  margin-right: 5px;
-  margin-bottom: 5px;
+.detail-description,
+.detail-url {
+  padding: 0.5rem;
 }
