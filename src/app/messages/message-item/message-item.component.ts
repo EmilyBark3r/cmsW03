@@ -1,16 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Message } from '../message.model';
-import { CommonModule } from '@angular/common';
+import { ContactService } from '../../contacts/contact.service';
 
 @Component({
   selector: 'app-message-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './message-item.component.html',
-  styleUrl: './message-item.component.css'
+  styleUrls: ['./message-item.component.css']
 })
-export class MessageItemComponent {
+export class MessageItemComponent implements OnInit {
+  @Input() message: Message;
+  messageSender: string;
 
-  @Input() message!: Message;
+  constructor(private contactService: ContactService) { }
 
+  ngOnInit(): void {
+    this.messageSender = this.contactService.getContact(
+      this.message.sender
+    ).name;
+  }
 }

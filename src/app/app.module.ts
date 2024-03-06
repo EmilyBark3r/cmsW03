@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
@@ -34,8 +35,7 @@ import { DndModule } from 'ng2-dnd';
     DocumentEditComponent,
     ContactEditComponent,
   ],
-  imports: [BrowserModule, FormsModule, MessageListComponent, AppRoutingModule, MessageItemComponent,
-    MessageEditComponent, HeaderComponent],
+  imports: [BrowserModule, FormsModule, MessageListComponent, AppRoutingModule, MessageItemComponent, MessageEditComponent, HeaderComponent, DndModule.forRoot()],
   providers: [],
   bootstrap: [AppComponent],
 })

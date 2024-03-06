@@ -5,7 +5,7 @@ import { Message } from '../message.model';
   selector: 'app-message-edit',
   standalone: true,
   templateUrl: './message-edit.component.html',
-  styleUrl: './message-edit.component.css'
+  styleUrls: ['./message-edit.component.css']
 })
 
 export class MessageEditComponent implements OnInit {

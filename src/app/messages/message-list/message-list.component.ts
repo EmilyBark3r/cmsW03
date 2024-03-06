@@ -10,7 +10,7 @@ import { NgFor } from '@angular/common';
   standalone: true,
   imports: [MessageItemComponent, MessageEditComponent, NgFor],
   templateUrl: './message-list.component.html',
-  styleUrl: './message-list.component.css'
+  styleUrls: ['./message-list.component.css']
 })
 export class MessageListComponent {
   messages: Message[] = [];
