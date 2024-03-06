@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -34,8 +34,9 @@ import { DndModule } from 'ng2-dnd';
     DocumentDetailComponent,
     DocumentEditComponent,
     ContactEditComponent,
+    HeaderComponent
   ],
-  imports: [BrowserModule, FormsModule, MessageListComponent, AppRoutingModule, MessageItemComponent, MessageEditComponent, HeaderComponent, DndModule.forRoot()],
+  imports: [CommonModule, BrowserModule, FormsModule, MessageListComponent, AppRoutingModule, MessageItemComponent, MessageEditComponent, DndModule.forRoot()],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -78,12 +78,13 @@
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="groupList">Group Contacts:</label>
-          430\wdd430-master\w08_Assignment\cms\node_modules\ng2-dnd\src\droppable.component.d.ts
+
           <div
             class="row"
             id="groupList"
             style="min-height: 3rem"
             dnd-droppable
+            [dropZones]="['contactGroup']"
             (onDropSuccess)="addToGroup($event)"
           >
             <div *ngFor="let contact of groupContacts; let i = index">

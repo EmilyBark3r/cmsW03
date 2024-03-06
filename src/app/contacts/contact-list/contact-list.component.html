@@ -9,13 +9,14 @@
   </div>
   <div class="row contact-list-container">
     <div class="col-xs-12">
-      <app-contact-item></app-contact-item>
-    </div>
-  </div>
-</div>
-<!-- *ngFor="let contact of contacts"
+      <app-contact-item
+        *ngFor="let contact of contacts"
         [contact]="contact"
         dnd-draggable
         [dragEnabled]="true"
         [dragData]="contact"
-        [dropZones]="['contactGroup']" -->
+        [dropZones]="['contactGroup']"
+      ></app-contact-item>
+    </div>
+  </div>
+</div>
