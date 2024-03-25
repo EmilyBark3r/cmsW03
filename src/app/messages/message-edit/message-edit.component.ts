@@ -1,11 +1,11 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { Message } from '../messages.model';
+import { Message } from '../message.model';
 
 @Component({
   selector: 'app-message-edit',
   standalone: true,
   templateUrl: './message-edit.component.html',
-  styleUrl: './message-edit.component.css'
+  styleUrls: ['./message-edit.component.css']
 })
 
 export class MessageEditComponent implements OnInit {

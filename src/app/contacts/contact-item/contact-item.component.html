@@ -1,9 +1,17 @@
-<!-- <p>contact-item works!</p> -->
-<a class="row contact-item list-group-item clearfix">
-  <div class="col-xs-6">
-    <h3>{{ contact.name }}</h3>
+<a
+  [routerLink]="['/contacts', contact.id]"
+  routerLinkActive="active"
+  class="list-group-item clearfix"
+>
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{ contact.name }}</h4>
   </div>
-  <div class="col-xs-6" text-right>
-    <img [src]="contact.imageUrl" alt="{{contact.name}}" class="contact-image">
-  </div>
+  <span class="pull-right">
+    <img
+      [src]="contact.imageUrl"
+      [alt]="contact.name"
+      class="img-responsive"
+      style="max-height: 50px"
+    />
+  </span>
 </a>

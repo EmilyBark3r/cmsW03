@@ -1,30 +1,22 @@
-import { Component } from '@angular/core';
-import { DocumentListComponent } from './document-list/document-list.component';
-import { DocumentDetailComponent } from './document-detail/document-detail.component';
+import { Component, OnInit } from '@angular/core';
 import { Document } from './document.model';
-import { NgIf } from '@angular/common';
-import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
+import { DocumentService } from './document.service';
 
 @Component({
   selector: 'app-documents',
-  standalone: true,
-  imports: [DocumentListComponent, DocumentDetailComponent, NgIf],
   templateUrl: './documents.component.html',
-  styleUrl: './documents.component.css'
+  styleUrls: ['./documents.component.css'],
 })
-export class DocumentsComponent {
-  selectedDocument!: Document;
-  private documents: Document[] = [];
+export class DocumentsComponent implements OnInit {
+  selectedDocument: Document;
 
-  constructor() {
-    this.documents = MOCKDOCUMENTS;
-  }
+  constructor(private documentService: DocumentService) {}
 
-  getDocuments(): Document[] {
-    return this.documents.slice();
-  }
-
-  getDocument(id: string): Document | undefined {
-    return this.documents.find((d) => d.id === id);
+  ngOnInit(): void {
+    this.documentService.selectedDocumentEvent.subscribe(
+      (document: Document) => {
+        this.selectedDocument = document;
+      }
+    );
   }
 }

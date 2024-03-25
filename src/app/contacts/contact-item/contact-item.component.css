@@ -1,11 +1,15 @@
 .contact-item {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .contact-image {
-    border-radius: 20%;
-    width: 8rem;
-    margin: 5px;
+  border-radius: 20%;
+  width: 8rem;
+  margin: 5px;
+}
+
+img[src=" "] {
+  display: none;
 }

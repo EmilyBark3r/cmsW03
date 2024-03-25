@@ -1,36 +1,26 @@
 import {
   Component,
   EventEmitter,
-  Output,
+  OnDestroy,
   OnInit,
-  OnDestroy
+  Output,
 } from '@angular/core';
-import { DocumentItemComponent } from '../document-item/document-item.component';
-import { Document } from '../document.model';
-import { NgFor } from '@angular/common';
-import { DocumentService } from '../documents.service';
 import { Subscription } from 'rxjs';
+import { Document } from '../document.model';
+import { DocumentService } from '../document.service';
 
 @Component({
   selector: 'app-document-list',
-  standalone: true,
-  imports: [DocumentItemComponent, NgFor],
   templateUrl: './document-list.component.html',
-  styleUrls: ['./document-list.component.css']
+  styleUrls: ['./document-list.component.css'],
 })
-
 export class DocumentListComponent implements OnInit, OnDestroy {
   @Output() selectedDocumentEvent = new EventEmitter();
-  subscription!: Subscription;
-  // private igChangeSub: Subscription | null = null;
+  subscription: Subscription;
 
   documents: Document[] = [];
 
   constructor(private documentService: DocumentService) { }
-
-  onSelectedDocument(document: Document) {
-    this.selectedDocumentEvent.emit(document);
-  }
 
   ngOnInit(): void {
     this.documents = this.documentService.getDocuments();

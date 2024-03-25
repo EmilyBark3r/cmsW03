@@ -1,29 +1,22 @@
-import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { Contact } from '../contact.model';
-import { NgFor } from '@angular/common';
-import { ContactItemComponent } from '../contact-item/contact-item.component';
-import { ContactsService } from '../contacts.service';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Contact } from '../contact.model';
+import { ContactService } from '../contact.service';
 
 @Component({
   selector: 'app-contact-list',
-  standalone: true,
-  imports: [NgFor, ContactItemComponent],
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css']
+  styleUrls: ['./contact-list.component.css'],
 })
-
 export class ContactListComponent implements OnInit, OnDestroy {
-  subscription!: Subscription;
   contacts: Contact[] = [];
+  subscription: Subscription;
 
-  @Output() selectedContactEvent = new EventEmitter<Contact>();
-
-  onSelected(contact: Contact) {
-    this.selectedContactEvent.emit(contact);
-  }
-
-  constructor(private contactService: ContactsService) { }
+  constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
     this.contacts = this.contactService.getContacts();
