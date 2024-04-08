@@ -9,8 +9,16 @@
   </div>
   <div class="row contact-list-container">
     <div class="col-xs-12">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Enter a search value" #searchBox (keyup)="search(searchBox.value)">
+        <div class="input-group-addon glyphicon glyphicon-search" (click)="search(searchBox.value)"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row contact-list-container">
+    <div class="col-xs-12">
       <app-contact-item
-        *ngFor="let contact of contacts"
+        *ngFor="let contact of contacts | ContactsFilterPipe:term"
         [contact]="contact"
         dnd-draggable
         [dragEnabled]="true"
