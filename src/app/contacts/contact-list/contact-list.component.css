@@ -9,8 +9,6 @@
 .contact-list-container {
   padding: 1rem 0;
   border: 1px solid #ccc;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
 }
 
 .panel-title {
