@@ -3,132 +3,65 @@
     <form id="contact-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="row">
         <div class="col-sm-12 form-group">
-          <label for="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            [ngModel]="contact?.name"
-            class="form-control required"
-            size="120"
-            max="120"
-            required
-            #name="ngModel"
-          />
+          <label for="name">Name</label>
+          <input #name="ngModel" name="name" type="text" id="name" class="form-control required" size="120" max="120"
+            [ngModel]="originalContact?.name" required>
         </div>
-      </div>
 
-      <div class="row">
         <div class="col-sm-12 form-group">
-          <label for="email">Email:</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            [ngModel]="contact?.email"
-            class="form-control required"
-            size="120"
-            max="255"
-            required
-            #email="ngModel"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-          />
-        </div>
-      </div>
-      <div class="alert alert-danger" *ngIf="!email.valid && email.touched">
-        Please enter a valid email address.
-      </div>
-
-      <div class="row">
-        <div class="col-sm-12 form-group">
-          <label for="phone">Phone:</label>
-          <input
-            type="text"
-            id="phone"
-            name="phone"
-            [ngModel]="contact?.phone"
-            class="form-control invalid"
-            size="150"
-            max="255"
-            #phone="ngModel"
-            pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*"
-          />
-        </div>
-      </div>
-      <div class="alert alert-danger" *ngIf="!phone.valid && phone.touched">
-        Please enter a valid phone number.
-      </div>
-
-      <div class="row">
-        <div class="col-sm-12 form-group">
-          <label for="imageUrl">Image URL:</label>
-          <input
-            type="text"
-            id="imageUrl"
-            name="imageUrl"
-            [ngModel]="contact?.imageUrl"
-            class="form-control"
-            size="150"
-            max="255"
-            #imageUrl="ngModel"
-          />
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-12 form-group">
-          <label for="groupList">Group Contacts:</label>
-
-          <div
-            class="row"
-            id="groupList"
-            style="min-height: 3rem"
-            dnd-droppable
-            [dropZones]="['contactGroup']"
-            (onDropSuccess)="addToGroup($event)"
-          >
-            <div *ngFor="let contact of groupContacts; let i = index">
-              <div>
-                <app-contact-item
-                  class="col-sm-11"
-                  [contact]="contact"
-                ></app-contact-item>
-                <button
-                  class="btn btn-danger col-sm-2 deleteButton"
-                  (click)="onRemoveItem(i)"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-            <span class="dragMsg" *ngIf="groupContacts?.length < 1"
-              >Drag contacts in group here</span
-            >
+          <label for="email">Email</label>
+          <input #email="ngModel" name="email" type="text" id="email" class="form-control required" size="120" max="255"
+            [ngModel]="originalContact?.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+          <div class="alert alert-danger" *ngIf="email.dirty && !email.valid">
+            Enter a valid email address!
           </div>
         </div>
+
+        <div class="col-sm-12 form-group">
+          <label for="phone">Phone</label>
+          <input #phone="ngModel" name="phone" type="text" id="phone" class="form-control invalid" size="150" max="255"
+            [ngModel]="originalContact?.phone" pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*">
+          <div class="alert alert-danger" *ngIf="phone.dirty && phone.invalid">
+            Enter a valid phone number!
+          </div>
+        </div>
+
+        <div class="col-sm-12 form-group">
+          <label for="imageUrl">Image URL</label>
+          <input #imageUrl="ngModel" name="imageUrl" type="text" id="imageUrl" class="form-control" size="150" max="255"
+            [ngModel]="originalContact?.imageUrl">
+        </div>
       </div>
 
-      <div
-        class="alert alert-danger"
-        *ngIf="(!name.valid && name.touched) || (!email.valid && email.touched)"
-      >
-        The Name and Email fields are required.
+      <div class="form-group">
+        <label for="groupList">Group contacts</label>
+
+        <div class="row" id="groupList" style="min-height: 3rem;" dnd-droppable [dropZones]="['contactGroup']"
+          (onDropSuccess)="addToGroup($event)">
+
+          <div class="alert alert-danger" *ngIf="invalidGroupContact">Contact cannot be added to the group. It is
+            already in group or is the current contact.</div>
+          <div *ngFor="let contact of groupContacts; let i = index">
+            <div>
+              <app-contact-item class="col-sm-11" [contact]="contact"></app-contact-item>
+              <button class="btn btn-danger col-sm-2 deleteButton" (click)="onRemoveItem(i)">X</button>
+            </div>
+          </div>
+          <span class="dragMsg" *ngIf="groupContacts?.length < 1">Drag contacts in group here</span>
+        </div>
+      </div>
+
+      <div *ngIf="name.touched && !name.valid || email.touched && !email.valid" class="alert alert-danger">
+        The Name and Email are required!
       </div>
 
       <div class="row">
         <div class="col-xs-12 btn-toolbar">
-          <button
-            class="btn btn-success"
-            type="submit"
-            [disabled]="!editMode && !f.valid"
-          >
-            Save
-          </button>
-          <button class="btn btn-primary" type="button" (click)="onCancel()">
-            Cancel
-          </button>
+          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
+          <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
         </div>
       </div>
+
     </form>
   </div>
 </div>

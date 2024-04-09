@@ -1,69 +1,95 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Contact } from './contact.model';
-import { MOCKCONTACTS } from './MOCKCONTACTS';
+import { Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ContactService {
-  contactSelectedEvent = new EventEmitter<Contact>();
+  contactChangedEvent = new EventEmitter<Contact[]>();
   contactListChangedEvent = new Subject<Contact[]>();
+  maxContactId: number;
+  contacts: Contact[] = [];
 
-  private contacts: Contact[] = [];
-  private maxContactId: number;
-
-  constructor() {
-    this.contacts = MOCKCONTACTS;
+  constructor(private http: HttpClient) {
     this.maxContactId = this.getMaxId();
   }
 
-  getContacts(): Contact[] {
-    return this.contacts.slice();
+  getContacts() {
+    this.http.get<{ message: string, contacts: Contact[] }>('http://localhost:3000/contacts')
+      .subscribe(
+        (responseData: { message: string, contacts: Contact[] }) => {
+          this.contacts = responseData.contacts;
+          this.contacts.sort((a, b) => (a.name < b.name) ? 1 : (a.name > b.name) ? -1 : 0);
+          this.contactListChangedEvent.next(this.contacts.slice());
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
-  getContact(id: string): Contact {
-    return this.contacts.find((c) => c.id === id);
-  }
-
-  deleteContact(contact: Contact) {
-    if (!contact) return;
-    const pos = this.contacts.indexOf(contact);
-    if (pos < 0) return;
-    this.contacts.splice(pos, 1);
-    this.contactListChangedEvent.next(this.contacts.slice());
+  getContact(id: string) {
+    return this.http.get<{ message: string, contact: Contact }>('http://localhost:3000/contacts/' + id);
   }
 
   getMaxId(): number {
     let maxId = 0;
-    this.contacts.forEach((c) => {
-      if (+c.id > maxId) maxId = +c.id;
-    });
+    for (const contact of this.contacts) {
+      const currentId = +contact.id;
+      if (currentId > maxId) {
+        maxId = currentId;
+      }
+    }
     return maxId;
   }
 
   addContact(newContact: Contact) {
-    if (newContact === null || newContact === undefined) return;
-    this.maxContactId++;
-    newContact.id = `${this.maxContactId}`;
-    this.contacts.push(newContact);
-    this.contactListChangedEvent.next(this.contacts.slice());
-  }
-
-  updateContact(original: Contact, newContact: Contact) {
-    if (
-      newContact === null ||
-      newContact === undefined ||
-      original === null ||
-      original === undefined
-    ) {
+    if (!newContact) {
       return;
     }
-    const pos = this.contacts.indexOf(original);
-    if (pos < 0) return;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    newContact.id = '';
+    const strContact = JSON.stringify(newContact);
+    this.http.post('http://localhost:3000/contacts', strContact, { headers: headers })
+      .subscribe(
+        (responseData: any) => {
+          this.contacts = responseData;
+          this.contactChangedEvent.next(this.contacts.slice());
+        }
+      );
+  }
 
-    newContact.id = original.id;
-    this.contacts[pos] = newContact;
-    this.contactListChangedEvent.next(this.contacts.slice());
+  updateContact(originalContact: Contact, newContact: Contact) {
+    if (!originalContact || !newContact) {
+      return;
+    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const strContact = JSON.stringify(newContact);
+    this.http.patch('http://localhost:3000/contacts/' + originalContact.id, strContact, { headers: headers })
+      .subscribe(
+        (responseData: any) => {
+          this.contacts = responseData;
+          this.contactChangedEvent.next(this.contacts.slice());
+        }
+      );
+  }
+
+  deleteContact(contact: Contact) {
+    if (!contact) {
+      return;
+    }
+    this.http.delete('http://localhost:3000/contacts/' + contact.id)
+      .subscribe(
+        (responseData: any) => {
+          this.contacts = responseData;
+          this.contactChangedEvent.next(this.contacts.slice());
+        }
+      );
   }
 }

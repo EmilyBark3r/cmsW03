@@ -5,16 +5,20 @@ import { ContactService } from './contact.service';
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.css'],
+  styleUrls: ['./contacts.component.css']
 })
 export class ContactsComponent implements OnInit {
+  //object for the selected contact
   selectedContact: Contact;
 
-  constructor(private contactService: ContactService) {}
+  //inject contact service
+  constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
-    this.contactService.contactSelectedEvent.subscribe((contact: Contact) => {
+    this.contactService.contactChangedEvent.subscribe((contact: Contact) => {
       this.selectedContact = contact;
-    });
+    })
   }
+
+
 }

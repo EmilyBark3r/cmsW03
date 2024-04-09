@@ -1,41 +1,31 @@
 <div class="panel panel-default">
   <div class="panel-heading">
+    <h4>{{contact.name}}</h4>
     <div class="row">
-      <div class="col-xs-12">
-        <h3>{{ contact.name }}</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-6 vcenter">
-        <img [src]="contact.imageUrl" [alt]="contact.name" height="90px" />
-      </div>
-      <div class="col-xs-6 vcenter">
-        <a class="btn btn-primary btn-sm" routerLink="edit">Edit</a>
-        <a class="btn btn-danger btn-sm" (click)="onDelete()">Delete</a>
-      </div>
+      <span class="pull-left">
+        <img src="{{contact.imageUrl}}" alt="{{contact.name}}" class="img-responsive" style="max-height: 100px;">
+      </span>
+
+      <span class="pull-right btn-toolbar" style="margin-top: 35px;">
+        <a class="btn btn-primary" routerLink="edit">Edit</a>
+        <a class="btn btn-danger" (click)="onDelete()">Delete</a>
+      </span>
     </div>
   </div>
+
   <div class="panel-body">
-    <div class="row" *ngIf="contact.email && contact.email !== ' '">
-      <div class="col-xs-12">
-        <p><strong>Email:</strong> {{ contact.email }}</p>
-      </div>
-    </div>
-    <div class="row" *ngIf="contact.phone && contact.phone !== ' '">
-      <div class="col-xs-12">
-        <p><strong>Phone:</strong> {{ contact.phone }}</p>
-      </div>
-    </div>
-    <div class="row" *ngIf="contact.group">
-      <div class="col-xs-12">
-        <strong>Group Contacts:</strong>
-        <div class="row" style="min-height: 3rem">
-          <div *ngFor="let groupContact of contact.group">
-            <app-contact-item
-              class="col-sm-11"
-              [contact]="groupContact"
-            ></app-contact-item>
+    <p>Email: {{contact.email}}</p>
+    <p>Phone: {{contact.phone}}</p>
+    <p *ngIf="contact.group">Contacts in Team:</p>
+    <div class="panel-body" *ngIf="contact.group">
+      <div class="row">
+        <div class="col-xs-12" *ngFor="let contact of contact.group">
+          <div class="pull-left">
+            <p class="list-group-item-heading">{{contact.name}}</p>
           </div>
+          <span class="pull-right">
+            <img src="{{contact.imageUrl}}" alt="{{contact.name}}" class="img-responsive" style="max-height: 80px;">
+          </span>
         </div>
       </div>
     </div>

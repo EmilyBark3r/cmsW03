@@ -25,3 +25,15 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+MONGODB: 
+Username: emilybarker
+Password: EVWshxgBym7rAVMn
+
+npm install mongodb
+
+CONNECTION SCREEN:
+mongodb+srv://emilybarker:EVWshxgBym7rAVMn@cmswdd430.1mzoqqp.mongodb.net/?retryWrites=true&w=majority&appName=CMSWDD430
+
+mongodb+srv://emilybarker:<password>@cmswdd430.1mzoqqp.mongodb.net/
