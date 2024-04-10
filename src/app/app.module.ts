@@ -22,6 +22,7 @@ import { DocumentEditComponent } from './documents/document-edit/document-edit.c
 import { MessageItemComponent } from './messages/message-item/message-item.component';
 import { MessageEditComponent } from './messages/message-edit/message-edit.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MessageListComponent } from './messages/message-list/message-list.compo
     DocumentItemComponent,
     DocumentDetailComponent,
     DocumentEditComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

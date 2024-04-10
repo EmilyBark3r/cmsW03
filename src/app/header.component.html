@@ -16,19 +16,83 @@
           <a routerLink="/contacts">Contacts</a>
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appDropdown>
-          <a href="#" class="dropdown-toggle" role="button"
-            >User <span class="caret"></span
-          ></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Other</a></li>
-            <hr style="margin: 0.6rem 0" />
-            <li><a href="#">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
+      <nav class="menu">
+        <ol>
+          <li class="menu-item">
+            <a href="#0">User</a>
+            <ol class="sub-menu">
+              <li class="menu-item"><a href="/login">Login</a></li>
+              <li class="menu-item"><a href="#0">Other</a></li>
+              <li class="menu-item"><a href="#0">Logout</a></li>
+            </ol>
+          </li>
+        </ol>
+      </nav>
     </div>
   </div>
 </nav>
+<style>
+  /* Basic styles for the menu */
+  .menu {
+    background-color: #f8f8f8;
+    min-height: 50px;
+  }
+
+  /* Styles for the ordered list */
+  .menu>ol {
+    list-style: none;
+    /* padding: 0; */
+    /* margin: 0; */
+    display: flex;
+    /* flex-direction: row; */
+  }
+
+  /* Styles for each menu item */
+  .menu-item {
+    position: relative;
+    /* Needed for absolute positioning of sub-menu */
+  }
+
+  /* Styles for the links within menu items */
+  .menu-item>a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #555;
+    /* Dark grey text */
+  }
+
+  /* Styles for the sub-menu */
+  .sub-menu {
+    display: none;
+    /* Hide sub-menu by default */
+    position: absolute;
+    top: 100%;
+    /* Align sub-menu right below the menu item */
+    left: -85%;
+    background-color: #e7e7e7;
+    /* Light grey background */
+    border: 1px solid #e7e7e7;
+    /* Light grey border */
+    list-style: none;
+  }
+
+  /* Show sub-menu on hover */
+  .menu-item:hover>.sub-menu {
+    display: block;
+  }
+
+  /* Media query to align menu items to the right on larger screens */
+  @media (min-width: 768px) {
+    .menu>ol {
+      justify-content: flex-end;
+    }
+  }
+
+  /* Additional padding for the container to prevent the menu from being too close to the edges */
+  .container-fluid {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+</style>

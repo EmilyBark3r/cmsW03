@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from '../app/login/login.component'; 
+
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 
@@ -30,6 +32,8 @@ const appRoutes: Routes = [
       { path: ':id/edit', component: ContactEditComponent },
     ],
   },
+    // Add the following route for /login
+    { path: 'login', component: LoginComponent }, 
 ];
 
 @NgModule({
