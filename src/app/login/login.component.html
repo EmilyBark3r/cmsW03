@@ -11,7 +11,8 @@
         <div class="form-group">
           <label for="password">Password:</label>
           <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password"
-            [(ngModel)]="formLogin.password" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}">
+          [(ngModel)]="formLogin.password" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}">
+          <p>Password must have at least one digit, one lowercase letter, one uppercase letter, and be between 8 to 20 characters long.</p>
           <button type="button" class="btn btn-default"
             (click)="toggleShowPassword()">{{showPassword ? 'Hide' : 'Show'}} Password</button>
         </div>

@@ -19,7 +19,7 @@
       <nav class="menu">
         <ol>
           <li class="menu-item">
-            <a href="#0">User</a>
+            <a class="downArrow" href="#0">User </a>
             <ol class="sub-menu">
               <li class="menu-item"><a href="/login">Login</a></li>
               <li class="menu-item"><a href="#0">Other</a></li>
@@ -32,12 +32,6 @@
   </div>
 </nav>
 <style>
-  /* Basic styles for the menu */
-  .menu {
-    background-color: #f8f8f8;
-    min-height: 50px;
-  }
-
   /* Styles for the ordered list */
   .menu>ol {
     list-style: none;
@@ -60,6 +54,11 @@
     text-decoration: none;
     color: #555;
     /* Dark grey text */
+  }
+
+  .downArrow:after {
+    content: "\21B4";
+    font-size: 20px;
   }
 
   /* Styles for the sub-menu */
